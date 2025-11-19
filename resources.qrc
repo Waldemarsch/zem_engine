@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="/icons">
+    <file>icons/game_of_life.png</file>
+  </qresource>
+</RCC>
