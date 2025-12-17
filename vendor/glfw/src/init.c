@@ -25,14 +25,13 @@
 //
 //========================================================================
 
-#include "internal.h"
-
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdarg.h>
 #include <assert.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
+#include "internal.h"
 
 // NOTE: The global variables below comprise all mutable global data in GLFW
 //       Any other mutable global variable is a bug

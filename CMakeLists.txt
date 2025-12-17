@@ -2,10 +2,11 @@
 
 project(opengltrain)
 
-add_executable(opengltrain main.cpp)
+add_executable(opengltrain src/main.cpp
+        src/graphics/shader.h)
 
-add_subdirectory(external/glfw)
-add_subdirectory(external/glad)
+add_subdirectory(vendor/glfw)
+add_subdirectory(vendor/glad)
 
 target_link_libraries(opengltrain PRIVATE
     glfw

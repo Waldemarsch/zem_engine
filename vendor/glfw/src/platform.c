@@ -25,10 +25,10 @@
 //
 //========================================================================
 
-#include "internal.h"
-
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
+
+#include "internal.h"
 
 // These construct a string literal from individual numeric constants
 #define _GLFW_CONCAT_VERSION(m, n, r) #m "." #n "." #r

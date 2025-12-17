@@ -26,13 +26,12 @@
 //
 //========================================================================
 
-#include "internal.h"
-
 #include <assert.h>
-#include <string.h>
-#include <stdlib.h>
 #include <float.h>
+#include <stdlib.h>
+#include <string.h>
 
+#include "internal.h"
 
 //////////////////////////////////////////////////////////////////////////
 //////                         GLFW event API                       //////

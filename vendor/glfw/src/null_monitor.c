@@ -25,11 +25,11 @@
 //
 //========================================================================
 
-#include "internal.h"
-
+#include <math.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
+
+#include "internal.h"
 
 // The the sole (fake) video mode of our (sole) fake monitor
 //
