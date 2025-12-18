@@ -2,9 +2,14 @@
 
 project(opengltrain)
 
-add_executable(opengltrain src/main.cpp
-        src/graphics/shader.h
-        src/graphics/shader.cpp)
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "src/*.cpp" "src/*.h")
+
+add_executable(opengltrain ${SOURCES})
+
+target_include_directories(opengltrain PRIVATE src)
 
 add_subdirectory(vendor/glfw)
 add_subdirectory(vendor/glad)
