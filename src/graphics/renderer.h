@@ -5,6 +5,9 @@
 #ifndef OPENGLTRAIN_RENDERER_H
 #define OPENGLTRAIN_RENDERER_H
 
-class Renderer {};
+class Renderer {
+public:
+  void DrawTriangle();
+};
 
 #endif  // OPENGLTRAIN_RENDERER_H
