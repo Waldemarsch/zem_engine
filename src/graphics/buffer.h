@@ -4,11 +4,14 @@
 
 #ifndef OPENGLTRAIN_BUFFER_H
 #define OPENGLTRAIN_BUFFER_H
+#include <vector>
+
 #include "glad/glad.h"
 
 class VertexBuffer {
  public:
-  explicit VertexBuffer(GLfloat* vertices);
+  explicit VertexBuffer(const std::vector<GLfloat>& vertices);
+
   ~VertexBuffer();
   void Bind() const;
   void Unbind();

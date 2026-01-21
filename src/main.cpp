@@ -1,7 +1,6 @@
 ﻿//
 // Created by vovaz on 02.12.2025.
 //
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -10,31 +9,15 @@
 #include <cstdio>
 #include <filesystem>
 #include <iostream>
+#include <vector>
 
 #include "glad/glad.h"
+#include "graphics/renderer.h"
 #include "graphics/shader.h"
 
-GLuint VAO, VBO;
-
-GLfloat triangleVertices[] = {
+std::vector<GLfloat> triangleVertices = {
     1.0f, 1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 };
-
-void DrawTriangle() {
-  glGenVertexArrays(1, &VAO);
-  glBindVertexArray(VAO);
-
-  glGenBuffers(1, &VBO);
-  glBindBuffer(GL_ARRAY_BUFFER, VBO);
-  glBufferData(GL_ARRAY_BUFFER, sizeof(triangleVertices), triangleVertices,
-               GL_STATIC_DRAW);
-
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
-  glEnableVertexAttribArray(0);
-
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-  glBindVertexArray(0);
-}
 
 int main() {
   if (!glfwInit()) {
@@ -70,19 +53,26 @@ int main() {
     return 1;
   }
 
-  DrawTriangle();
-  Shader shader("res/shaders/vertex_shader.glsl", "res/shaders/fragment_shader.glsl");
+  VertexBuffer vbo(triangleVertices);
+  vbo.Bind();
+
+  VertexArray vao;
+  vao.AddBuffer(vbo);
+
+  Shader shader("res/shaders/vertex_shader.glsl",
+                "res/shaders/fragment_shader.glsl");
   shader.Bind();
+
+
+  Renderer renderer;
+  renderer.Init();
 
   while (!glfwWindowShouldClose(mainWindow)) {
     glfwPollEvents();
 
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    renderer.Clear();
 
-    glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
-    glBindVertexArray(0);
+    renderer.Draw(shader, vao);
 
     glfwSwapBuffers(mainWindow);
   }

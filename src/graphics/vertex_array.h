@@ -8,14 +8,14 @@
 #include "glad/glad.h"
 
 class VertexArray {
-public:
+ public:
   VertexArray();
   void Bind() const;
   void Unbind();
   void AddBuffer(const VertexBuffer &vb) const;
 
-private:
-  GLuint id_ {0};
+ private:
+  GLuint id_{0};
 };
 
 #endif  // OPENGLTRAIN_VERTEX_ARRAY_H
