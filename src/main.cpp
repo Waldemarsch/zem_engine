@@ -61,16 +61,25 @@ int main() {
 
   Shader shader("res/shaders/vertex_shader.glsl",
                 "res/shaders/fragment_shader.glsl");
-  shader.Bind();
-
+  shader.Use();
 
   Renderer renderer;
   renderer.Init();
+
+  float cur_offset_x = 0.0f;
+  int dir = 1;
 
   while (!glfwWindowShouldClose(mainWindow)) {
     glfwPollEvents();
 
     renderer.Clear();
+
+    if (cur_offset_x > 1.f) dir = -1;
+    else if (cur_offset_x < -1.f) dir = 1;
+    cur_offset_x += 0.01f * (float)dir;
+    shader.SetUniformVar("xMove", cur_offset_x);
+    std::cout << cur_offset_x << std::endl;
+
 
     renderer.Draw(shader, vao);
 

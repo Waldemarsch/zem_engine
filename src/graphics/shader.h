@@ -16,8 +16,14 @@ class Shader {
          const std::string &fragment_shader_path);
   ~Shader();
 
-  void Bind() const;
-  void Unbind() const;
+  void Use() const;
+  void Unuse() const;
+
+  void SetUniformVar(const std::string &uniform_name, float value) const;
+  void SetUniformVar(const std::string &uniform_name, int value) const;
+
+  GLuint id_;
+
 
  private:
   [[nodiscard]] GLuint LinkProgram(GLuint vertex_shader_id,
@@ -26,5 +32,5 @@ class Shader {
                                      GLenum shader_type) const;
   [[nodiscard]] std::string ParseShader(
       const std::string &shader_code_path) const;
-  GLuint id_;
+
 };

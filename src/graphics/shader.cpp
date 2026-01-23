@@ -18,7 +18,7 @@ Shader::Shader(const std::string& vertex_shader_path,
 
   id_ = LinkProgram(vertex_sh_id, fragment_sh_id);
 
-  if (id_ == 0) {
+  if (id_ <= 0) {
     std::cerr << "Shader build failed" << std::endl;
   }
 }
@@ -26,12 +26,22 @@ Shader::~Shader() {
   glDeleteProgram(id_);
 }
 
-void Shader::Bind() const {
+void Shader::Use() const {
   glUseProgram(id_);
 }
 
-void Shader::Unbind() const {
+void Shader::Unuse() const {
   glUseProgram(0);
+}
+
+void Shader::SetUniformVar(const std::string& uniform_name, float value) const {
+  GLint loc = glGetUniformLocation(id_, uniform_name.c_str());
+  glUniform1f(loc, value);
+}
+
+void Shader::SetUniformVar(const std::string& uniform_name, int value) const {
+  GLint loc = glGetUniformLocation(id_, uniform_name.c_str());
+  glUniform1i(loc, value);
 }
 
 GLuint Shader::LinkProgram(GLuint vertex_shader_id,

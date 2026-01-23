@@ -11,7 +11,7 @@
 void Renderer::Init() { glClearColor(0.1f, 0.1f, 0.1f, 1.0f); }
 
 void Renderer::Draw(const Shader& shader, const VertexArray& vao) {
-  shader.Bind();
+  shader.Use();
   vao.Bind();
   glDrawArrays(GL_TRIANGLES, 0, 3);
 }
