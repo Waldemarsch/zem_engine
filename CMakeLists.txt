@@ -7,16 +7,34 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "src/*.cpp" "src/*.h")
 
-add_executable(opengltrain ${SOURCES})
+add_library(zem_physics INTERFACE)
+target_include_directories(zem_physics INTERFACE
+        "${CMAKE_CURRENT_SOURCE_DIR}/include"
+)
 
-target_include_directories(opengltrain PRIVATE src)
+add_library(zem_math INTERFACE)
+target_include_directories(zem_math INTERFACE
+        "${CMAKE_CURRENT_SOURCE_DIR}/include"
+)
+
+add_executable(opengltrain ${SOURCES}
+        src/core/window.h
+)
+
+target_include_directories(opengltrain
+        PRIVATE src
+        PRIVATE include
+)
 
 add_subdirectory(vendor/glfw)
 add_subdirectory(vendor/glad)
+add_subdirectory(vendor/glm)
 
 target_link_libraries(opengltrain PRIVATE
-    glfw
-    glad
+        zem_math
+        zem_physics
+        glfw
+        glad
 )
 
 file(COPY ${CMAKE_SOURCE_DIR}/res DESTINATION ${CMAKE_BINARY_DIR})
