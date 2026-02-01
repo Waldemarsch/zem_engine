@@ -2,3 +2,4 @@
 BasedOnStyle: Google
 SeparateDefinitionBlocks: Always
 MaxEmptyLinesToKeep: 1
+BinPackArguments: false
