@@ -6,7 +6,7 @@
 #define OPENGLTRAIN_BODY_HANDLE_H
 #include <cstdint>
 
-namespace zem_core {
+namespace zem::core {
 class BodyHandle {
  public:
   BodyHandle() : id_(0) {}

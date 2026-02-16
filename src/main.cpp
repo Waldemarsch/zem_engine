@@ -1,9 +1,8 @@
 ﻿//
 // Created by vovaz on 02.12.2025.
 //
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
-
+#include <glad/glad.h>
 #include <string.h>
 
 #include <cstdio>
@@ -16,7 +15,15 @@
 #include "graphics/shader.h"
 
 std::vector<GLfloat> triangleVertices = {
-    1.0f, 1.0f, 0.0f, 1.0f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
+    1.0f,
+    1.0f,
+    0.0f,
+    1.0f,
+    -1.0f,
+    0.0f,
+    0.0f,
+    0.0f,
+    0.0f,
 };
 
 int main() {
@@ -74,12 +81,13 @@ int main() {
 
     renderer.Clear();
 
-    if (cur_offset_x > 1.f) dir = -1;
-    else if (cur_offset_x < -1.f) dir = 1;
+    if (cur_offset_x > 1.f)
+      dir = -1;
+    else if (cur_offset_x < -1.f)
+      dir = 1;
     cur_offset_x += 0.01f * (float)dir;
     shader.SetUniformVar("xMove", cur_offset_x);
     std::cout << cur_offset_x << std::endl;
-
 
     renderer.Draw(shader, vao);
 

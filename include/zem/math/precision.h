@@ -5,7 +5,7 @@
 #ifndef OPENGLTRAIN_PRECISION_H
 #define OPENGLTRAIN_PRECISION_H
 
-namespace zem_math {
+namespace zem::math {
 using Real = float;
 }
 
