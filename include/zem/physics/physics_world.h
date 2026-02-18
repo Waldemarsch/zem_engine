@@ -26,8 +26,8 @@ class PhysicsWorld {
   PhysicsWorld(PhysicsWorld&&) noexcept;
   PhysicsWorld& operator=(PhysicsWorld&&) noexcept;
 
-  [[nodiscard]] core::BodyHandle CreateBody(const math::Vector3& position,
-                                            math::Real mass);
+  [[nodiscard]] core::BodyHandle CreateBody(
+      math::Real mass, const math::Vector3& position);
 
   void DestroyBody(core::BodyHandle handle);
 

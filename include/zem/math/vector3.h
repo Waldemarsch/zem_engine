@@ -17,6 +17,8 @@ struct Vector3 {
 
   constexpr Vector3(Real x, Real y, Real z) : x(x), y(y), z(z) {}
 
+  static constexpr Vector3 Zero() { return {0, 0, 0}; }
+
   constexpr Vector3& operator+=(const Vector3& right);
   constexpr Vector3& operator-=(const Vector3& right);
   constexpr Vector3& operator*=(Real right);
@@ -111,6 +113,6 @@ constexpr Vector3 operator*(Vector3 left, Real right) { return left *= right; }
 constexpr Vector3 operator*(Real left, Vector3 right) { return right *= left; }
 
 constexpr Vector3 operator/(Vector3 left, Real right) { return left /= right; }
-}  // namespace zem_math
+}  // namespace zem::math
 
 #endif  // OPENGLTRAIN_VECTOR3_H
