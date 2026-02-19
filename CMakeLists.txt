@@ -17,23 +17,30 @@ target_include_directories(zem_math INTERFACE "include/")
 add_library(zem_core INTERFACE)
 target_include_directories(zem_core INTERFACE "include/")
 
-add_executable(opengltrain ${SOURCES} ${HEADERS})
+add_executable(opengltrain
+        src/main.cpp
+        src/physics_world.cpp
+        src/internal/physics_data.h
+        ${HEADERS}
+)
 
 target_include_directories(opengltrain
         PRIVATE src
         PRIVATE include
 )
 
-add_subdirectory(vendor/glfw)
-add_subdirectory(vendor/glad)
-add_subdirectory(vendor/glm)
+#add_subdirectory(vendor/glfw)
+#add_subdirectory(vendor/glad)
+#add_subdirectory(vendor/glm)
+add_subdirectory(vendor/raylib)
 
 target_link_libraries(opengltrain PRIVATE
         zem_math
         zem_physics
         zem_core
-        glfw
-        glad
+#        glfw
+#        glad
+        raylib
 )
 
 file(COPY ${CMAKE_SOURCE_DIR}/res DESTINATION ${CMAKE_BINARY_DIR})
