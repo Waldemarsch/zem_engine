@@ -1,97 +1,76 @@
 ﻿//
 // Created by vovaz on 02.12.2025.
 //
-#include <string.h>
-
-#include <cstdio>
-#include <filesystem>
-#include <iostream>
 #include <vector>
 
-#include "glad/glad.h"
-#include <GLFW/glfw3.h>
-#include "graphics/renderer.h"
-#include "graphics/shader.h"
+#include "raylib.h"
 
-std::vector<GLfloat> triangleVertices = {
-    1.0f,
-    1.0f,
-    0.0f,
-    1.0f,
-    -1.0f,
-    0.0f,
-    0.0f,
-    0.0f,
-    0.0f,
-};
+#include "zem/physics/physics_world.h"
 
 int main() {
-  if (!glfwInit()) {
-    std::printf("GLFW");
-    glfwTerminate();
-    return 1;
-  }
+  // 1. Инициализация окна (800x600)
+    InitWindow(1280, 720, "ZEM Physics Engine - DOD Demo");
+    SetTargetFPS(60); // Лочим на 60 FPS
 
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    // 2. Настройка 3D камеры
+    Camera3D camera = { 0 };
+    camera.position = (Vector3){ 10.0f, 10.0f, 10.0f }; // Стоим сбоку и сверху
+    camera.target = (Vector3){ 0.0f, 0.0f, 0.0f };      // Смотрим в центр (0,0,0)
+    camera.up = (Vector3){ 0.0f, 1.0f, 0.0f };          // Где "верх"
+    camera.fovy = 45.0f;                                // Угол обзора
+    camera.projection = CAMERA_PERSPECTIVE;
 
-  // Хуйня, определяющая отношение к deprecated
-  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    // 3. Создаем ФИЗИЧЕСКИЙ МИР
+    zem::physics::PhysicsWorld world;
 
-  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    // Создаем список хендлов, чтобы мы знали, кого рисовать.
+    // (Позже движок сам сможет давать список активных тел, но пока храним сами)
+    std::vector<zem::core::BodyHandle> bodies;
 
-  GLFWwindow *mainWindow = glfwCreateWindow(640, 480, "HUI", NULL, NULL);
+    // Спавним 10 шариков в ряд
+    for (int i = 0; i < 10; ++i) {
+        // Создаем тело в движке: (x, y, z), масса 1.0
+        auto handle = world.CreateBody(1.0f, zem::math::Vector3(i * 2.0f, 5.0f, 0.0f));
+        bodies.push_back(handle);
+    }
 
-  if (!mainWindow) {
-    printf("Наебнулось создание окна GLFW");
-    glfwTerminate();
-    return 1;
-  }
+    // 4. ГЛАВНЫЙ ЦИКЛ (Game Loop)
+    while (!WindowShouldClose()) {
+        // --- А. Логика (Physics Step) ---
+        float dt = GetFrameTime(); // Время последнего кадра
+        world.Step(dt); // Твой движок считает физику!
 
-  int bufferWidth, bufferHeight;
-  glfwGetFramebufferSize(mainWindow, &bufferWidth, &bufferHeight);
+        // Управление камерой (мышкой)
+        UpdateCamera(&camera, CAMERA_ORBITAL);
 
-  glfwMakeContextCurrent(mainWindow);
+        // --- Б. Рендер (Рисование) ---
+        BeginDrawing();
+            ClearBackground(RAYWHITE); // Чистим экран белым цветом
 
-  if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress))) {
-    printf("Наебнулась инициализация GLAD");
-    glfwTerminate();
-    return 1;
-  }
+            BeginMode3D(camera);
+                // Рисуем сетку (пол), чтобы было видно пространство
+                DrawGrid(20, 1.0f);
 
-  VertexBuffer vbo(triangleVertices);
-  vbo.Bind();
+                // Рисуем наши тела
+                for (const auto& handle : bodies) {
+                    // 1. Запрашиваем позицию у движка (DOD)
+                    zem::math::Vector3 pos = world.GetPosition(handle);
 
-  VertexArray vao;
-  vao.AddBuffer(vbo);
+                    // 2. Конвертируем в формат Raylib для отрисовки
+                    Vector3 raylibPos = { (float)pos.x, (float)pos.y, (float)pos.z };
 
-  Shader shader("res/shaders/vertex_shader.glsl",
-                "res/shaders/fragment_shader.glsl");
-  shader.Use();
+                    // 3. Рисуем красную сферу радиусом 0.5
+                    DrawSphere(raylibPos, 0.5f, RED);
+                    DrawSphereWires(raylibPos, 0.5f, 16, 16, MAROON); // Обводка
+                }
+            EndMode3D();
 
-  Renderer renderer;
-  renderer.Init();
+            DrawText("DOD Physics Demo", 10, 10, 20, DARKGRAY);
+            DrawFPS(10, 40);
+        EndDrawing();
+    }
 
-  float cur_offset_x = 0.0f;
-  int dir = 1;
-
-  while (!glfwWindowShouldClose(mainWindow)) {
-    glfwPollEvents();
-
-    renderer.Clear();
-
-    if (cur_offset_x > 1.f)
-      dir = -1;
-    else if (cur_offset_x < -1.f)
-      dir = 1;
-    cur_offset_x += 0.01f * (float)dir;
-    shader.SetUniformVar("xMove", cur_offset_x);
-    std::cout << cur_offset_x << std::endl;
-
-    renderer.Draw(shader, vao);
-
-    glfwSwapBuffers(mainWindow);
-  }
-
+    // 5. Очистка
+    CloseWindow();
   return 0;
 }
