@@ -1,8 +1,6 @@
 ﻿//
 // Created by vovaz on 02.12.2025.
 //
-#include <GLFW/glfw3.h>
-#include <glad/glad.h>
 #include <string.h>
 
 #include <cstdio>
@@ -11,6 +9,7 @@
 #include <vector>
 
 #include "glad/glad.h"
+#include <GLFW/glfw3.h>
 #include "graphics/renderer.h"
 #include "graphics/shader.h"
 
