@@ -53,6 +53,8 @@ void PhysicsWorld::DestroyBody(core::BodyHandle handle) {
 
   if (data.generations[handle.index()] != handle.generation()) return;
 
+  data.inverse_masses[handle.index()] = 0.0f;
+
   data.generations[handle.index()]++;
 
   data.free_indices.push_back(handle.index());
@@ -70,7 +72,19 @@ math::Vector3 PhysicsWorld::GetPosition(core::BodyHandle handle) const {
   return data.positions[handle.index()];
 }
 
+// ReSharper disable once CppMemberFunctionMayBeConst
 void PhysicsWorld::Step(math::Real delta_time) {
+  auto& data = *physics_data_;
+  size_t count = data.positions.size();
 
+  math::Vector3 gravity(0.0f, -9.81f, 0.0f);
+
+  for (size_t i = 0; i < count; i++) {
+    if (data.inverse_masses[i] == 0.0f) continue;
+
+    data.velocities[i] += gravity * delta_time;
+
+    data.positions[i] += data.velocities[i] * delta_time;
+  }
 }
 }  // namespace zem::physics
