@@ -51,7 +51,9 @@ target_include_directories(zem_physics INTERFACE "include/")
 add_library(zem_math INTERFACE)
 target_include_directories(zem_math INTERFACE "include/")
 
-add_library(zem_core INTERFACE)
+add_library(zem_core INTERFACE
+        src/core/clock.cpp
+        include/zem/core/clock.h)
 target_include_directories(zem_core INTERFACE "include/")
 
 
@@ -60,6 +62,8 @@ add_executable(opengltrain
         src/physics_world.cpp
         src/internal/physics_data.h
         ${HEADERS}
+        src/core/application.cpp
+        include/zem/core/application.h
 )
 
 target_include_directories(opengltrain

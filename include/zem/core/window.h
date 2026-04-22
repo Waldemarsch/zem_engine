@@ -5,6 +5,8 @@
 #ifndef OPENGLTRAIN_WINDOW_H
 #define OPENGLTRAIN_WINDOW_H
 
-class Window {};
+namespace zem::core {
+class Window{};
+}
 
 #endif  // OPENGLTRAIN_WINDOW_H
