@@ -2,8 +2,8 @@
 // Created by val on 18/12/2025.
 //
 
-#ifndef OPENGLTRAIN_RENDERER_H
-#define OPENGLTRAIN_RENDERER_H
+#pragma once
+
 #include "vertex_array.h"
 
 namespace zem::graphics {
@@ -16,5 +16,3 @@ class Renderer {
   void Clear();
 };
 }  // namespace zem::graphics
-
-#endif  // OPENGLTRAIN_RENDERER_H

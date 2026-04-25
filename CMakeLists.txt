@@ -5,9 +5,6 @@ project(opengltrain)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS "src/*.cpp" "src/*.h")
-file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS "include/*.h")
-
 set(TARGET_UNITTESTS OFF CACHE BOOL "" FORCE)
 set(TARGET_HELLO_WORLD OFF CACHE BOOL "" FORCE)
 set(TARGET_PERFORMANCE_TEST OFF CACHE BOOL "" FORCE)
@@ -45,41 +42,37 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(JoltPhysics glfw glm)
 
+add_subdirectory(vendor/glad)
+
 add_library(zem_physics INTERFACE)
 target_include_directories(zem_physics INTERFACE "include/")
+target_link_libraries(zem_physics INTERFACE Jolt)
 
 add_library(zem_math INTERFACE)
 target_include_directories(zem_math INTERFACE "include/")
-
-add_library(zem_core INTERFACE
-        src/core/clock.cpp
-        include/zem/core/clock.h)
-target_include_directories(zem_core INTERFACE "include/")
+target_link_libraries(zem_math INTERFACE glm)
 
 
-add_executable(opengltrain
-        src/main.cpp
-        src/physics_world.cpp
-        src/internal/physics_data.h
-        ${HEADERS}
+add_library(zem_graphics STATIC
+        src/graphics/buffer.cpp
+        src/graphics/renderer.cpp
+        src/graphics/shader.cpp
+        src/graphics/vertex_array.cpp)
+target_include_directories(zem_graphics PUBLIC "include/")
+target_link_libraries(zem_graphics PUBLIC glfw glad)
+
+add_library(zem_core STATIC
         src/core/application.cpp
-        include/zem/core/application.h
+        src/core/clock.cpp
+        src/core/window.cpp
 )
+target_include_directories(zem_core PUBLIC "include/")
+target_link_libraries(zem_core PUBLIC zem_physics zem_graphics zem_math)
 
-target_include_directories(opengltrain
-        PRIVATE src
-        PRIVATE include
-)
-
-add_subdirectory(vendor/glad)
+add_executable(opengltrain src/main.cpp)
 
 target_link_libraries(opengltrain PRIVATE
-        zem_math
-        zem_physics
         zem_core
-        glfw
-        glad
-        Jolt
 )
 
 file(COPY ${CMAKE_SOURCE_DIR}/res DESTINATION ${CMAKE_BINARY_DIR})
