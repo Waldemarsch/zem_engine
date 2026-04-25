@@ -7,6 +7,7 @@
 #include "buffer.h"
 #include "glad/glad.h"
 
+namespace zem::graphics {
 class VertexArray {
  public:
   VertexArray();
@@ -17,5 +18,6 @@ class VertexArray {
  private:
   GLuint id_{0};
 };
+}  // namespace zem::graphics
 
 #endif  // OPENGLTRAIN_VERTEX_ARRAY_H

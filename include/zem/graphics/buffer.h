@@ -8,6 +8,7 @@
 
 #include "glad/glad.h"
 
+namespace zem::graphics {
 class VertexBuffer {
  public:
   explicit VertexBuffer(const std::vector<GLfloat>& vertices);
@@ -19,5 +20,6 @@ class VertexBuffer {
  private:
   GLuint id_{0};
 };
+}  // namespace zem::graphics
 
 #endif  // OPENGLTRAIN_BUFFER_H

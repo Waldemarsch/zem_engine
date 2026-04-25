@@ -10,6 +10,7 @@
 
 #endif  // OPENGLTRAIN_SHADER_H
 
+namespace zem::graphics {
 class Shader {
  public:
   Shader(const std::string &vertex_shader_path,
@@ -24,7 +25,6 @@ class Shader {
 
   GLuint id_;
 
-
  private:
   [[nodiscard]] GLuint LinkProgram(GLuint vertex_shader_id,
                                    GLuint fragment_shader_id) const;
@@ -32,5 +32,5 @@ class Shader {
                                      GLenum shader_type) const;
   [[nodiscard]] std::string ParseShader(
       const std::string &shader_code_path) const;
-
 };
+}  // namespace zem::graphics

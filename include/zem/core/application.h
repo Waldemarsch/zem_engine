@@ -7,12 +7,13 @@
 #include "clock.h"
 #include "zem/math/precision.h"
 
-
 namespace zem::core {
+class Window;
+
 class Application {
-public:
+ public:
   Application();
-  virtual ~Application();
+  virtual ~Application() = 0;
 
   Application(const Application& other) = delete;
   Application& operator=(const Application& other) = delete;
@@ -20,18 +21,17 @@ public:
   void Run();
   void Close();
 
-private:
+ private:
   void ProcessInput();
   void Update(math::Real dt);
   void Render();
 
-
+  std::unique_ptr<Window> window_;
   // TODO Renderer
   Clock clock_;
 
   bool is_running_ = false;
 };
-} // namespace zem::core
+}  // namespace zem::core
 
-
-#endif //OPENGLTRAIN_APPLICATION_H
+#endif  // OPENGLTRAIN_APPLICATION_H

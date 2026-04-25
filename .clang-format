@@ -3,5 +3,6 @@ BasedOnStyle: Google
 SeparateDefinitionBlocks: Always
 MaxEmptyLinesToKeep: 1
 BinPackArguments: false
-
-Checks: 'google-*'
+AllowShortFunctionsOnASingleLine: Empty
+PackConstructorInitializers: Never
+BreakConstructorInitializers: BeforeColon

@@ -6,12 +6,15 @@
 #define OPENGLTRAIN_RENDERER_H
 #include "vertex_array.h"
 
+namespace zem::graphics {
 class Shader;
+
 class Renderer {
-public:
+ public:
   void Init();
   void Draw(const Shader& shader, const VertexArray& vao);
   void Clear();
 };
+}  // namespace zem::graphics
 
 #endif  // OPENGLTRAIN_RENDERER_H
