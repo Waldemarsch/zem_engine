@@ -55,9 +55,10 @@ target_link_libraries(zem_math INTERFACE glm)
 
 add_library(zem_graphics STATIC
         src/graphics/buffer.cpp
-        src/graphics/renderer.cpp
         src/graphics/shader.cpp
-        src/graphics/vertex_array.cpp)
+        src/graphics/vertex_array.cpp
+        src/graphics/renderer_open_gl.cpp
+        include/zem/graphics/renderer_open_gl.h)
 target_include_directories(zem_graphics PUBLIC "include/")
 target_link_libraries(zem_graphics PUBLIC glfw glad)
 

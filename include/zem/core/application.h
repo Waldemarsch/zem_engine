@@ -23,7 +23,7 @@ class Window;
  */
 class Application {
  public:
-  Application();
+  explicit Application(std::unique_ptr<graphics::Renderer> renderer);
 
   Application(const Application& other) = delete;
   Application& operator=(const Application& other) = delete;
@@ -33,14 +33,14 @@ class Application {
   void Close();
 
  private:
-  void ProcessInput();
+  static void ProcessInput();
 
   /**
    * @brief Method that contains integration part of the Main Loop
    * @param dt delta time
    */
-  void Update(math::Real dt);
-  void Render();
+  static void Update(math::Real dt);
+  void Render() const;
 
   std::unique_ptr<Window> window_;
   std::unique_ptr<graphics::Renderer> renderer_;

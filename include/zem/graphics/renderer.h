@@ -11,8 +11,9 @@ class Shader;
 
 class Renderer {
  public:
-  void Init();
-  void Draw(const Shader& shader, const VertexArray& vao);
-  void Clear();
+  virtual ~Renderer() = default;
+
+  virtual void Init() = 0;
+  virtual void Render() = 0;
 };
 }  // namespace zem::graphics

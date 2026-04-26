@@ -7,11 +7,11 @@
 #include "zem/core/window.h"
 #include "zem/graphics/renderer.h"
 
-zem::core::Application::Application()
-    : window_(std::make_unique<Window>()),
-      renderer_(std::make_unique<graphics::Renderer>()) {}
+namespace zem::core {
+Application::Application(std::unique_ptr<graphics::Renderer> renderer)
+    : window_(std::make_unique<Window>()), renderer_(std::move(renderer)) {}
 
-void zem::core::Application::Run() {
+void Application::Run() {
   is_running_ = true;
   while (is_running_) {
     ProcessInput();
@@ -19,9 +19,8 @@ void zem::core::Application::Run() {
     Render();
   }
 }
-void zem::core::Application::Close() {
-  is_running_ = false;
-}
-void zem::core::Application::ProcessInput() {
-
-}
+void Application::Close() { is_running_ = false; }
+void Application::ProcessInput() {}
+void Application::Update(math::Real dt) {}
+void Application::Render() const { renderer_->Render(); }
+}  // namespace zem::core
