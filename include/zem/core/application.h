@@ -24,6 +24,7 @@ class Window;
 class Application {
  public:
   explicit Application(std::unique_ptr<graphics::Renderer> renderer);
+  ~Application();
 
   Application(const Application& other) = delete;
   Application& operator=(const Application& other) = delete;

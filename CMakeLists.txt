@@ -1,6 +1,6 @@
 ﻿cmake_minimum_required(VERSION 3.24)
 
-project(opengltrain)
+project(zem_engine)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -18,7 +18,6 @@ set(USE_SSE4_1 ON CACHE BOOL "" FORCE)
 set(USE_SSE4_2 ON CACHE BOOL "" FORCE)
 set(USE_AVX ON CACHE BOOL "" FORCE)
 set(USE_AVX2 ON CACHE BOOL "" FORCE)
-
 
 include(FetchContent)
 
@@ -70,7 +69,7 @@ add_library(zem_core STATIC
 target_include_directories(zem_core PUBLIC "include/")
 target_link_libraries(zem_core PUBLIC zem_physics zem_graphics zem_math)
 
-add_executable(opengltrain src/main.cpp)
+add_executable(zem_engine src/main.cpp)
 
 target_link_libraries(opengltrain PRIVATE
         zem_core

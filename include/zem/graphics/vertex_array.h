@@ -13,7 +13,7 @@ class VertexArray {
   VertexArray();
   void Bind() const;
   void Unbind();
-  void AddBuffer(const VertexBuffer &vb) const;
+  void AddVertexAttribPointer() const;
 
  private:
   GLuint id_{0};

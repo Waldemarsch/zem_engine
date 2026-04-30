@@ -4,9 +4,35 @@
 
 #ifndef OPENGLTRAIN_WINDOW_H
 #define OPENGLTRAIN_WINDOW_H
+#include <memory>
 
 namespace zem::core {
-class Window{};
-}
+
+struct WindowProps {
+  std::string title{"Zem Engine"};
+  int width{1280};
+  int height{720};
+};
+
+class Window {
+ public:
+  explicit Window(const WindowProps& props = WindowProps{});
+  ~Window();
+
+  Window(const Window&) = delete;
+  Window& operator=(const Window&) = delete;
+
+  Window(Window&&) noexcept;
+  Window& operator=(Window&&) noexcept;
+
+  void OnUpdate();
+
+  [[nodiscard]] bool ShouldClose() const;
+
+ private:
+  class Impl;
+  std::unique_ptr<Impl> m_impl_;
+};
+}  // namespace zem::core
 
 #endif  // OPENGLTRAIN_WINDOW_H

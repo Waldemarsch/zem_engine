@@ -2,6 +2,6 @@
 #include "zem/graphics/renderer_open_gl.h"
 int main() {
   auto app =
-      zem::core::Application(std::make_unique<zem::graphics::RendererOpenGL>());
+      zem::core::Application(std::make_unique<zem::graphics::RendererOpenGL>("res/shaders/"));
   app.Run();
 }

@@ -2,14 +2,15 @@
 // Created by val on 18/12/2025.
 //
 
-#include "shader.h"
+#include "zem/graphics/shader.h"
 
 #include <fstream>
 #include <iostream>
 #include <sstream>
 
+namespace zem::graphics {
 Shader::Shader(const std::string& vertex_shader_path,
-               const std::string& fragment_shader_path) {
+                    const std::string& fragment_shader_path) {
   std::string vertex_src = ParseShader(vertex_shader_path);
   std::string fragment_src = ParseShader(fragment_shader_path);
 
@@ -22,17 +23,11 @@ Shader::Shader(const std::string& vertex_shader_path,
     std::cerr << "Shader build failed" << std::endl;
   }
 }
-Shader::~Shader() {
-  glDeleteProgram(id_);
-}
+Shader::~Shader() { glDeleteProgram(id_); }
 
-void Shader::Use() const {
-  glUseProgram(id_);
-}
+void Shader::Use() const { glUseProgram(id_); }
 
-void Shader::Unuse() const {
-  glUseProgram(0);
-}
+void Shader::Unuse() const { glUseProgram(0); }
 
 void Shader::SetUniformVar(const std::string& uniform_name, float value) const {
   GLint loc = glGetUniformLocation(id_, uniform_name.c_str());
@@ -114,3 +109,6 @@ std::string Shader::ParseShader(const std::string& shader_code_path) const {
 
   return buffer.str();
 }
+}
+
+

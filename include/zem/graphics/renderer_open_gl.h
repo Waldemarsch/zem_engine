@@ -16,6 +16,10 @@ class RendererOpenGL : public Renderer {
   void Render() override;
 
  private:
+  void VertexSpecification();
+  void ApplyVertexShader();
+  void ApplyFragmentShader();
+  void ApplyShaders(); // TODO Temp method, should be separated
   void Draw(const Shader& shader, const VertexArray& vao);
   void Clear();
 
