@@ -6,6 +6,8 @@
 
 #include <memory>
 
+#include "zem/graphics/contexts/graphics_context.h"
+
 namespace zem::core {
 
 struct WindowProps {
@@ -36,5 +38,7 @@ class Window {
  private:
   class Impl;
   std::unique_ptr<Impl> m_impl_;
+
+  std::unique_ptr<graphics::GraphicsContext> context_;
 };
 }  // namespace zem::core

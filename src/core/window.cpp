@@ -1,14 +1,12 @@
 //
 // Created by val on 26/01/2026.
 //
-#define GLFW_INCLUDE_NONE
-
 
 #include "zem/core/window.h"
 
 #include "GLFW/glfw3.h"
-#include "glad/glad.h"
 #include "zem/core/assert.h"
+#include "zem/graphics/contexts/opengl_context.h"
 
 namespace zem::core {
 class Window::Impl {
@@ -16,10 +14,6 @@ class Window::Impl {
   explicit Impl(const WindowProps& props) {
     native_window_ = glfwCreateWindow(props.width, props.height,
                                       props.title.c_str(), nullptr, nullptr);
-    glfwMakeContextCurrent(native_window_);
-
-    int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-    ZEM_ASSERT(status, "Failed to initialize GLAD!");
   }
 
   ~Impl() {
@@ -28,12 +22,13 @@ class Window::Impl {
     }
   }
   GLFWwindow* native_window_ = nullptr;
-
- private:
 };
 
 Window::Window(const WindowProps& props)
-    : m_impl_(std::make_unique<Impl>(props)) {}
+    : m_impl_(std::make_unique<Impl>(props)) {
+  context_ = std::make_unique<graphics::OpenGLContext>(m_impl_->native_window_);
+  context_->Init();
+}
 
 Window::~Window() = default;
 Window::Window(Window&&) noexcept = default;
@@ -43,7 +38,7 @@ void Window::PollEvents() {
   glfwPollEvents();
 }
 void Window::SwapBuffers() {
-  glfwSwapBuffers(m_impl_->native_window_);
+  context_->SwapBuffers();
 }
 
 bool Window::ShouldClose() const {
