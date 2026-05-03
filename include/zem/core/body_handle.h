@@ -2,8 +2,8 @@
 // Created by val on 16/02/2026.
 //
 
-#ifndef OPENGLTRAIN_BODY_HANDLE_H
-#define OPENGLTRAIN_BODY_HANDLE_H
+#pragma once
+
 #include <cstdint>
 
 namespace zem::core {
@@ -29,5 +29,3 @@ class BodyHandle {
   uint32_t id_;
 };
 }  // namespace zem_core
-
-#endif  // OPENGLTRAIN_BODY_HANDLE_H

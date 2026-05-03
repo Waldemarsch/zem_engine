@@ -2,11 +2,12 @@
 // Created by Владимир on 14.04.2026.
 //
 
-#ifndef OPENGLTRAIN_APPLICATION_H
-#define OPENGLTRAIN_APPLICATION_H
+#pragma once
+
 #include <memory>
 
 #include "clock.h"
+#include "window.h"
 #include "zem/math/precision.h"
 
 namespace zem::graphics {
@@ -14,7 +15,6 @@ class Renderer;
 }
 
 namespace zem::core {
-class Window;
 
 /**
  * @brief Main engine class. It controls engine life cycle.
@@ -43,12 +43,10 @@ class Application {
   static void Update(math::Real dt);
   void Render() const;
 
-  std::unique_ptr<Window> window_;
+  Window window_;
   std::unique_ptr<graphics::Renderer> renderer_;
   Clock clock_;
 
   bool is_running_ = false;
 };
 }  // namespace zem::core
-
-#endif  // OPENGLTRAIN_APPLICATION_H

@@ -2,8 +2,8 @@
 // Created by val on 26/01/2026.
 //
 
-#ifndef OPENGLTRAIN_WINDOW_H
-#define OPENGLTRAIN_WINDOW_H
+#pragma once
+
 #include <memory>
 
 namespace zem::core {
@@ -25,7 +25,11 @@ class Window {
   Window(Window&&) noexcept;
   Window& operator=(Window&&) noexcept;
 
-  void OnUpdate();
+  void PollEvents();
+
+  void SwapBuffers();
+
+  [[nodiscard]] void* GetNativeWindow() const;
 
   [[nodiscard]] bool ShouldClose() const;
 
@@ -34,5 +38,3 @@ class Window {
   std::unique_ptr<Impl> m_impl_;
 };
 }  // namespace zem::core
-
-#endif  // OPENGLTRAIN_WINDOW_H

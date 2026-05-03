@@ -57,21 +57,22 @@ add_library(zem_graphics STATIC
         src/graphics/shader.cpp
         src/graphics/vertex_array.cpp
         src/graphics/renderer_open_gl.cpp
-        include/zem/graphics/renderer_open_gl.h)
-target_include_directories(zem_graphics PUBLIC "include/")
-target_link_libraries(zem_graphics PUBLIC glfw glad)
+)
+target_include_directories(zem_graphics PRIVATE "include/")
+target_link_libraries(zem_graphics PRIVATE glfw glad)
 
 add_library(zem_core STATIC
         src/core/application.cpp
         src/core/clock.cpp
         src/core/window.cpp
+        src/core/platform_context.cpp
 )
 target_include_directories(zem_core PUBLIC "include/")
-target_link_libraries(zem_core PUBLIC zem_physics zem_graphics zem_math)
+target_link_libraries(zem_core PUBLIC zem_physics zem_graphics zem_math glfw glad)
 
 add_executable(zem_engine src/main.cpp)
 
-target_link_libraries(opengltrain PRIVATE
+target_link_libraries(zem_engine PRIVATE
         zem_core
 )
 

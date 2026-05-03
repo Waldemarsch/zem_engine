@@ -32,12 +32,18 @@ Window::~Window() = default;
 Window::Window(Window&&) noexcept = default;
 Window& Window::operator=(Window&&) noexcept = default;
 
-void Window::OnUpdate() {
+void Window::PollEvents() {
   glfwPollEvents();
+}
+void Window::SwapBuffers() {
   glfwSwapBuffers(m_impl_->native_window_);
 }
+
 bool Window::ShouldClose() const {
   return glfwWindowShouldClose(m_impl_->native_window_) != 0;
+}
+void* Window::GetNativeWindow() const {
+  return m_impl_->native_window_;
 }
 
 }  // namespace zem::core
