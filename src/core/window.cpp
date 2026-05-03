@@ -1,10 +1,14 @@
 //
 // Created by val on 26/01/2026.
 //
+#define GLFW_INCLUDE_NONE
+
 
 #include "zem/core/window.h"
 
 #include "GLFW/glfw3.h"
+#include "glad/glad.h"
+#include "zem/core/assert.h"
 
 namespace zem::core {
 class Window::Impl {
@@ -13,6 +17,9 @@ class Window::Impl {
     native_window_ = glfwCreateWindow(props.width, props.height,
                                       props.title.c_str(), nullptr, nullptr);
     glfwMakeContextCurrent(native_window_);
+
+    int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+    ZEM_ASSERT(status, "Failed to initialize GLAD!");
   }
 
   ~Impl() {

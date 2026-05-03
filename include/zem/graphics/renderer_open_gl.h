@@ -3,9 +3,11 @@
 //
 
 #pragma once
+#include <optional>
 #include <string>
 
 #include "renderer.h"
+#include "shader.h"
 
 namespace zem::graphics {
 class RendererOpenGL : public Renderer {
@@ -19,10 +21,14 @@ class RendererOpenGL : public Renderer {
   void VertexSpecification();
   void ApplyVertexShader();
   void ApplyFragmentShader();
-  void ApplyShaders(); // TODO Temp method, should be separated
-  void Draw(const Shader& shader, const VertexArray& vao);
+  void ApplyShaders();  // TODO Temp method, should be separated
+  void Draw();
   void Clear();
 
   std::string shader_path_;
+  std::optional<Shader> shader_;
+
+  std::optional<VertexArray> vao_;
+  std::optional<VertexBuffer> vbo_;
 };
 }  // namespace zem::graphics

@@ -1,8 +1,6 @@
 //
 // Created by Владимир on 14.04.2026.
 //
-#define GLFW_INCLUDE_NONE
-
 
 #include "zem/core/application.h"
 
@@ -18,6 +16,7 @@ Application::~Application() {
 
 void Application::Run() {
   is_running_ = true;
+  renderer_->Init();
   while (is_running_) {
     window_.PollEvents();
     ProcessInput();
@@ -30,6 +29,6 @@ void Application::Close() { is_running_ = false; }
 void Application::ProcessInput() {}
 void Application::Update(math::Real dt) {}
 void Application::Render() const {
-  // renderer_->Render();
+  renderer_->Render();
 }
 }  // namespace zem::core
