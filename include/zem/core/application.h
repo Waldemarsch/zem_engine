@@ -17,9 +17,10 @@ class Renderer;
 namespace zem::core {
 
 /**
- * @brief Main engine class. It controls engine life cycle.
- * It owns main subsystems (window, renderer).
- * It also contains the Main Loop.
+ * @class Application
+ * @brief Main engine class. It controls the engine lifecycle.
+ *
+ * It owns main subsystems (window, renderer) and orchestrates the Main Loop.
  */
 class Application {
  public:
@@ -29,11 +30,20 @@ class Application {
   Application(const Application& other) = delete;
   Application& operator=(const Application& other) = delete;
 
+  /**
+   * @brief Starts the main application loop. Blocking call until Close() is invoked or window closes.
+   */
   void Run();
 
+  /**
+   * @brief Signals the application to break out of the main loop.
+   */
   void Close();
 
  private:
+  /**
+   * @brief Processes input events for the current frame.
+   */
   static void ProcessInput();
 
   /**
@@ -41,6 +51,9 @@ class Application {
    * @param dt delta time
    */
   static void Update(math::Real dt);
+  /**
+   * @brief Submits draw calls for the current frame.
+   */
   void Render() const;
 
   Window window_;

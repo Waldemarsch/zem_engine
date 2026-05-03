@@ -9,12 +9,24 @@
 #include "zem/math/precision.h"
 
 namespace zem::core {
+/**
+ * @class Clock
+ * @brief High-resolution timer for calculating delta time.
+ */
 class Clock {
  public:
   Clock();
 
+  /**
+   * @brief Restarts the clock and returns the elapsed time since the last tick.
+   * @return The elapsed time in seconds.
+   */
   math::Real Restart();
 
+  /**
+   * @brief Gets the elapsed time since the last tick without restarting the clock.
+   * @return The elapsed time in seconds.
+   */
   [[nodiscard]] math::Real GetElapsedTime() const;
 
  private:

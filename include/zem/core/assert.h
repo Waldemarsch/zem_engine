@@ -17,6 +17,14 @@
 #endif
 
 namespace zem::core {
+
+/**
+ * @brief Reports assertion failures with source location context.
+ * 
+ * @param expression The stringified expression that failed.
+ * @param message Custom message explaining the failure.
+ * @param location Automatically captured source location of the caller.
+ */
 inline void ReportAssertionFailure(
     const char* expression, const char* message,
     std::source_location location = std::source_location::current()) {
@@ -29,6 +37,12 @@ inline void ReportAssertionFailure(
 }  // namespace zem::core
 
 #ifndef NDEBUG
+/**
+ * @brief Runtime assertion macro. Triggers a debug break if the expression evaluates to false.
+ * 
+ * @param expr The boolean expression to evaluate.
+ * @param msg The failure message to display if the assertion fails.
+ */
 #define ZEM_ASSERT(expr, msg)                        \
   do {                                               \
     if (!(expr)) {                                   \

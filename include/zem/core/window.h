@@ -10,14 +10,28 @@
 
 namespace zem::core {
 
+/**
+ * @struct WindowProps
+ * @brief Configuration properties used to initialize a Window.
+ */
 struct WindowProps {
   std::string title{"Zem Engine"};
   int width{1280};
   int height{720};
 };
 
+/**
+ * @class Window
+ * @brief Represents an OS-level window and encapsulates its graphics context.
+ * 
+ * Implements the Pimpl idiom to hide OS-specific window handlers (e.g. GLFWwindow).
+ */
 class Window {
  public:
+  /**
+   * @brief Constructs a new window and initializes its internal graphics context.
+   * @param props Window properties (title, width, height).
+   */
   explicit Window(const WindowProps& props = WindowProps{});
   ~Window();
 
@@ -27,8 +41,14 @@ class Window {
   Window(Window&&) noexcept;
   Window& operator=(Window&&) noexcept;
 
+  /**
+   * @brief Polls OS window events (input, resize, close). Must be called at the start of a frame.
+   */
   void PollEvents();
 
+  /**
+   * @brief Swaps the front and back buffers. Must be called at the end of a frame.
+   */
   void SwapBuffers();
 
   [[nodiscard]] void* GetNativeWindow() const;
