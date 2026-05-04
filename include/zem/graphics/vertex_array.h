@@ -4,8 +4,8 @@
 
 #pragma once
 
-#include "buffer.h"
 #include "glad/glad.h"
+#include "vertex_buffer.h"
 
 namespace zem::graphics {
 /**
