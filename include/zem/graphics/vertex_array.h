@@ -20,9 +20,13 @@ class VertexArray {
    * @brief Constructs a new Vertex Array Object on the GPU.
    */
   VertexArray();
+  ~VertexArray();
 
   VertexArray(const VertexArray& other) = delete;
   VertexArray& operator=(const VertexArray& other) = delete;
+
+  VertexArray(VertexArray&& other) noexcept;
+  VertexArray& operator=(VertexArray&& other) noexcept;
 
   /**
    * @brief Binds the VAO to the current OpenGL context.

@@ -28,6 +28,9 @@ class VertexBuffer {
   VertexBuffer(const VertexBuffer& other) = delete;
   VertexBuffer& operator=(const VertexBuffer& other) = delete;
 
+  VertexBuffer(VertexBuffer&& other) noexcept;
+  VertexBuffer& operator=(VertexBuffer&& other) noexcept;
+
   /**
    * @brief Binds the buffer to the current OpenGL context.
    */

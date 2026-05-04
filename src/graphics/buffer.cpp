@@ -5,6 +5,7 @@
 #include "zem/graphics/buffer.h"
 
 #include <iostream>
+#include <utility>
 
 namespace zem::graphics {
 VertexBuffer::VertexBuffer(const std::vector<GLfloat>& vertices) {
@@ -15,6 +16,14 @@ VertexBuffer::VertexBuffer(const std::vector<GLfloat>& vertices) {
 }
 
 VertexBuffer::~VertexBuffer() { glDeleteBuffers(1, &id_); }
+
+VertexBuffer::VertexBuffer(VertexBuffer&& other) noexcept
+    : id_(std::exchange(other.id_, 0)) {}
+VertexBuffer& VertexBuffer::operator=(VertexBuffer&& other) noexcept {
+  if (this == &other) return *this;
+  std::swap(id_, other.id_);
+  return *this;
+}
 
 void VertexBuffer::Bind() const { glBindBuffer(GL_ARRAY_BUFFER, id_); }
 

@@ -6,10 +6,20 @@
 
 #include <iostream>
 #include <ostream>
+#include <utility>
 
 namespace zem::graphics {
 
 VertexArray::VertexArray() { glGenVertexArrays(1, &id_); }
+VertexArray::~VertexArray() { glDeleteVertexArrays(1, &id_); }
+
+VertexArray::VertexArray(VertexArray&& other) noexcept
+    : id_(std::exchange(other.id_, 0)) {}
+VertexArray& VertexArray::operator=(VertexArray&& other) noexcept {
+  if (this == &other) return *this;
+  std::swap(id_, other.id_);
+  return *this;
+}
 
 void VertexArray::Bind() const { glBindVertexArray(id_); }
 

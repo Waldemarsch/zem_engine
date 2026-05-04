@@ -30,6 +30,9 @@ class Shader {
   Shader(const Shader &other) = delete;
   Shader &operator=(const Shader &other) = delete;
 
+  Shader(Shader &&other) noexcept;
+  Shader &operator=(Shader &&other) noexcept;
+
   /**
    * @brief Activates the shader program for use in subsequent draw calls.
    */

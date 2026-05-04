@@ -7,10 +7,11 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <utility>
 
 namespace zem::graphics {
 Shader::Shader(const std::string& vertex_shader_path,
-                    const std::string& fragment_shader_path) {
+               const std::string& fragment_shader_path) {
   std::string vertex_src = ParseShader(vertex_shader_path);
   std::string fragment_src = ParseShader(fragment_shader_path);
 
@@ -24,6 +25,13 @@ Shader::Shader(const std::string& vertex_shader_path,
   }
 }
 Shader::~Shader() { glDeleteProgram(id_); }
+
+Shader::Shader(Shader&& other) noexcept : id_(std::exchange(other.id_, 0)) {}
+Shader& Shader::operator=(Shader&& other) noexcept {
+  if (this == &other) return *this;
+  std::swap(id_, other.id_);
+  return *this;
+}
 
 void Shader::Use() const { glUseProgram(id_); }
 
@@ -109,6 +117,4 @@ std::string Shader::ParseShader(const std::string& shader_code_path) const {
 
   return buffer.str();
 }
-}
-
-
+}  // namespace zem::graphics
