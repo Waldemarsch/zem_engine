@@ -53,11 +53,9 @@ target_link_libraries(zem_math INTERFACE glm)
 
 
 add_library(zem_graphics STATIC
-#        src/graphics/opengl/buffer.cpp
-#        src/graphics/opengl/shader.cpp
-#        src/graphics/opengl/vertex_array.cpp
         src/graphics/renderer_open_gl.cpp
         src/graphics/opengl_context.cpp
+        src/graphics/opengl/opengl_shader.cpp
 )
 target_include_directories(zem_graphics PRIVATE "include/")
 target_link_libraries(zem_graphics PRIVATE glfw glad)

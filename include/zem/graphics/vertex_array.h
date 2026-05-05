@@ -4,46 +4,21 @@
 
 #pragma once
 
-#include "glad/glad.h"
-#include "vertex_buffer.h"
+#include <memory>
 
 namespace zem::graphics {
-/**
- * @class VertexArray
- * @brief Represents an OpenGL Vertex Array Object (VAO).
- * 
- * Manages the state of vertex attribute configurations and buffer bindings.
- */
+class VertexBuffer;
+
 class VertexArray {
  public:
-  /**
-   * @brief Constructs a new Vertex Array Object on the GPU.
-   */
-  VertexArray();
-  ~VertexArray();
+  virtual ~VertexArray() = default;
 
-  VertexArray(const VertexArray& other) = delete;
-  VertexArray& operator=(const VertexArray& other) = delete;
+  virtual void Bind() const = 0;
+  virtual void Unbind() const = 0;
 
-  VertexArray(VertexArray&& other) noexcept;
-  VertexArray& operator=(VertexArray&& other) noexcept;
+  virtual void AddVertexBuffer(
+      const std::shared_ptr<VertexBuffer>& vertex_buffer) = 0;
 
-  /**
-   * @brief Binds the VAO to the current OpenGL context.
-   */
-  void Bind() const;
-
-  /**
-   * @brief Unbinds the VAO.
-   */
-  void Unbind();
-
-  /**
-   * @brief Configures vertex attribute pointers for the bound buffers.
-   */
-  void AddVertexAttribPointer() const;
-
- private:
-  GLuint id_{0};
+  static std::shared_ptr<VertexArray> Create();
 };
 }  // namespace zem::graphics

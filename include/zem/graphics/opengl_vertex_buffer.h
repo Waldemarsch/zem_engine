@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include <vector>
+#include <memory>
 
 namespace zem::graphics {
 class VertexBuffer {
@@ -13,5 +13,8 @@ class VertexBuffer {
 
   virtual void Bind() const = 0;
   virtual void Unbind() const = 0;
+
+  static std::shared_ptr<VertexBuffer> Create(const void* vertices,
+                                              uint32_t size);
 };
 }  // namespace zem::graphics

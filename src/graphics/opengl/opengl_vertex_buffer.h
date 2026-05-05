@@ -4,7 +4,7 @@
 
 #pragma once
 #include "../../../cmake-build-debug/_deps/glfw-src/src/internal.h"
-#include "zem/graphics/vertex_buffer.h"
+#include "zem/graphics/opengl_vertex_buffer.h"
 
 namespace zem::graphics {
 class OpenGLVertexBuffer : public VertexBuffer {
