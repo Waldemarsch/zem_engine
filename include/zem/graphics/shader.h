@@ -4,6 +4,7 @@
 
 #pragma once
 
+#include <expected>
 #include <memory>
 #include <string>
 
@@ -21,7 +22,7 @@ class Shader {
 
   virtual void SetInt(const std::string& name, int value) const = 0;
 
-  static std::shared_ptr<Shader> Create(const std::string& vertex_path,
+  static std::expected<std::shared_ptr<Shader>, std::string> Create(const std::string& vertex_path,
                                         const std::string& fragment_path);
 };
 }  // namespace zem::graphics

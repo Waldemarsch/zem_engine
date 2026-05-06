@@ -11,16 +11,16 @@
 
 namespace zem::graphics {
 /**
- * @class RendererOpenGL
+ * @class OpenGLRenderer
  * @brief OpenGL implementation of the Renderer interface.
  */
-class RendererOpenGL : public Renderer {
+class OpenGLRenderer : public Renderer {
  public:
   /**
    * @brief Constructs an OpenGL renderer.
    * @param shader_path Base directory path for shader source files.
    */
-  explicit RendererOpenGL(std::string shader_path);
+  explicit OpenGLRenderer(std::string shader_path);
 
   void Init() override;
   void Render() override;
@@ -57,9 +57,9 @@ class RendererOpenGL : public Renderer {
   void Clear();
 
   std::string shader_path_;
-  std::optional<Shader> shader_;
 
-  std::optional<VertexArray> vao_;
-  std::optional<VertexBuffer> vbo_;
+  std::shared_ptr<Shader> shader_;
+  std::shared_ptr<VertexArray> vao_;
+  std::shared_ptr<VertexBuffer> vbo_;
 };
 }  // namespace zem::graphics
