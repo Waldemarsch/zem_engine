@@ -3,16 +3,19 @@
 //
 
 #pragma once
+#include <expected>
+
 #include "glad/glad.h"
 #include "zem/graphics/shader.h"
 
 namespace zem::graphics {
 
-class OpenGLShader : public Shader {
+class OpenGLShader final : public Shader {
  public:
-  OpenGLShader(const std::string& vertex_path,
-               const std::string& fragment_path);
   ~OpenGLShader() override;
+
+  static std::expected<std::shared_ptr<OpenGLShader>, std::string> Create(
+      const std::string& vertex_path, const std::string& fragment_path);
 
   OpenGLShader(const OpenGLShader& other) = delete;
   OpenGLShader& operator=(const OpenGLShader& other) = delete;
@@ -22,17 +25,13 @@ class OpenGLShader : public Shader {
 
   void Use() const override;
   void Unuse() const override;
+
   void SetFloat(const std::string& name, float value) const override;
   void SetInt(const std::string& name, int value) const override;
 
  private:
-  GLuint id_{0};
+  explicit OpenGLShader(GLuint program_id);
 
-  [[nodiscard]] GLuint LinkProgram(GLuint vertex_shader_id,
-                                   GLuint fragment_shader_id) const;
-  [[nodiscard]] GLuint CompileShader(const std::string& shader_code,
-                                     GLenum shader_type) const;
-  [[nodiscard]] std::string ParseShader(
-      const std::string& shader_code_path) const;
+  GLuint id_{0};
 };
 }  // namespace zem::graphics
