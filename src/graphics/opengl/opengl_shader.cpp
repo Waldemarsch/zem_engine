@@ -117,12 +117,10 @@ void OpenGLShader::Use() const { glUseProgram(id_); }
 void OpenGLShader::Unuse() const { glUseProgram(0); }
 void OpenGLShader::SetFloat(const std::string& name, float value) const {
   GLint location = glGetUniformLocation(id_, name.c_str());
-  ZEM_ASSERT(location != -1, "Failed to get uniform location");
   glUniform1f(location, value);
 }
 void OpenGLShader::SetInt(const std::string& name, int value) const {
   GLint location = glGetUniformLocation(id_, name.c_str());
-  ZEM_ASSERT(location != -1, "Failed to get uniform location");
   glUniform1i(location, value);
 }
 }  // namespace zem::graphics
