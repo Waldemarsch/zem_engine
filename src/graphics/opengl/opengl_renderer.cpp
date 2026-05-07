@@ -37,6 +37,7 @@ void OpenGLRenderer::VertexSpecification() {
 
   vbo_ = VertexBuffer::Create(vertices, sizeof(vertices));
   vbo_->Bind();
+  vbo_->set_layout({{"pos", ShaderDataType::Float3}});
 
   vao_->AddVertexBuffer(vbo_);
 }
@@ -50,7 +51,7 @@ void OpenGLRenderer::Draw() {
 
 void OpenGLRenderer::ApplyShaders() {
   auto shader_res = Shader::Create(shader_path_ + "vertex_shader.glsl",
-                               shader_path_ + "fragment_shader.glsl");
+                                   shader_path_ + "fragment_shader.glsl");
   if (!shader_res.has_value()) {
     ZEM_ASSERT(false, shader_res.error().c_str());
   }

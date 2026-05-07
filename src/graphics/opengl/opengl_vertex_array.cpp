@@ -65,9 +65,9 @@ void OpenGLVertexArray::AddVertexBuffer(
   for (auto& el : vertex_buffer->layout()) {
     glEnableVertexAttribArray(vertex_attribute_index_);
     glVertexAttribPointer(
-        vertex_attribute_index_, static_cast<GLint>(el.size),
+        vertex_attribute_index_, static_cast<GLint>(utils::GetComponentCount(el.type)),
         ShaderDataTypeToOpenGLBaseType(el.type), el.normalized,
-        static_cast<GLsizei>(vertex_buffer->layout().stride()), &el.offset);
+        static_cast<GLsizei>(vertex_buffer->layout().stride()), reinterpret_cast<const void*>(el.offset));
     vertex_attribute_index_++;
   }
 }
