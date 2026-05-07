@@ -6,6 +6,8 @@
 
 #include <memory>
 
+#include "buffer_layout.h"
+
 namespace zem::graphics {
 class VertexBuffer {
  public:
@@ -16,5 +18,9 @@ class VertexBuffer {
 
   static std::shared_ptr<VertexBuffer> Create(const void* vertices,
                                               uint32_t size);
+
+  [[nodiscard]] virtual const BufferLayout& layout() const = 0;
+  virtual void set_layout(const BufferLayout& layout) = 0;
+
 };
 }  // namespace zem::graphics

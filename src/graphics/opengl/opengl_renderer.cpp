@@ -2,12 +2,12 @@
 // Created by Владимир on 25.04.2026.
 //
 
-#include "zem/graphics/opengl_renderer.h"
+#include "opengl_renderer.h"
 
 #include "glad/glad.h"
+#include "zem/core/assert.h"
 #include "zem/graphics/vertex_array.h"
 #include "zem/graphics/vertex_buffer.h"
-#include "zem/core/assert.h"
 
 namespace zem::graphics {
 

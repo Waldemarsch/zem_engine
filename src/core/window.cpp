@@ -4,9 +4,9 @@
 
 #include "zem/core/window.h"
 
+#include "../graphics/opengl/opengl_context.h"
 #include "GLFW/glfw3.h"
 #include "zem/core/assert.h"
-#include "zem/graphics/contexts/opengl_context.h"
 
 namespace zem::core {
 class Window::Impl {

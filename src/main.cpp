@@ -1,6 +1,6 @@
-﻿#include "zem/core/application.h"
+﻿#include "graphics/opengl/opengl_renderer.h"
+#include "zem/core/application.h"
 #include "zem/core/platform_context.h"
-#include "zem/graphics/opengl_renderer.h"
 int main() {
   zem::core::PlatformContext platform_ctx;
 

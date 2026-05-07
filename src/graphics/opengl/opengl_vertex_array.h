@@ -26,5 +26,6 @@ class OpenGLVertexArray : public VertexArray {
 
 private:
   GLuint id_{0};
+  uint32_t vertex_attribute_index_{0};
 };
 }  // namespace zem::graphics

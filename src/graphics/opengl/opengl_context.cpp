@@ -3,7 +3,7 @@
 //
 #define GLFW_INCLUDE_NONE
 
-#include "zem/graphics/contexts/opengl_context.h"
+#include "opengl_context.h"
 
 #include "GLFW/glfw3.h"
 #include "glad/glad.h"

@@ -3,7 +3,7 @@
 //
 
 #pragma once
-#include "graphics_context.h"
+#include "../../../include/zem/graphics/contexts/graphics_context.h"
 
 struct GLFWwindow;
 

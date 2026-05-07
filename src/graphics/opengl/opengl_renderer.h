@@ -6,8 +6,8 @@
 #include <optional>
 #include <string>
 
-#include "renderer.h"
-#include "shader.h"
+#include "../../../include/zem/graphics/renderer.h"
+#include "../../../include/zem/graphics/shader.h"
 
 namespace zem::graphics {
 /**

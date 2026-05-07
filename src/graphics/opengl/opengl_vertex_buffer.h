@@ -22,7 +22,11 @@ class OpenGLVertexBuffer : public VertexBuffer {
   void Bind() const override;
   void Unbind() const override;
 
+  [[nodiscard]] const BufferLayout& layout() const override { return layout_; };
+  void set_layout(const BufferLayout& layout) override { layout_ = layout; };
+
  private:
   GLuint id_{0};
+  BufferLayout layout_;
 };
 }  // namespace zem::graphics
