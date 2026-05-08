@@ -62,6 +62,8 @@ add_library(zem_graphics STATIC
         src/graphics/vertex_array.cpp
         src/graphics/shader.cpp
         src/graphics/buffer_layout.cpp
+        src/graphics/index_buffer.cpp
+        include/zem/graphics/index_buffer.h
 )
 target_include_directories(zem_graphics PRIVATE "include/")
 target_link_libraries(zem_graphics PRIVATE glfw glad)

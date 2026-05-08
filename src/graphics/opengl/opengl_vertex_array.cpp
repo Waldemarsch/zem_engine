@@ -54,6 +54,7 @@ OpenGLVertexArray& OpenGLVertexArray::operator=(
 
 void OpenGLVertexArray::Bind() const { glBindVertexArray(id_); }
 void OpenGLVertexArray::Unbind() const { glBindVertexArray(0); }
+
 void OpenGLVertexArray::AddVertexBuffer(
     const std::shared_ptr<VertexBuffer>& vertex_buffer) {
   Bind();
